@@ -358,7 +358,7 @@ const Services = () => {
           title={<h1>Welfare of differently abled people</h1>}
           subText={
             <h5>
-              Disability can be very debilitating and difficult to deal wit. Rozgaar is a platform dedicated to work for the welfare of differently abled people too.
+              Disability can be very debilitating and difficult to deal with. Rozgaar is a platform dedicated to work for the welfare of differently abled people too.
             </h5>
           }
         />
