@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const passportConfig = require("./lib/passportConfig");
 const cors = require("cors");
 const fs = require("fs");
+const timeout = require('connect-timeout')
 
 
 // MongoDB
@@ -31,16 +32,23 @@ if (!fs.existsSync("./public/profile")) {
 }
 
 const app = express();
+app.use(timeout('5s'))
 const port = process.env.PORT || 4444;
-
+app.use(haltOnTimedout)
 app.use(bodyParser.json()); // support json encoded bodies
+app.use(haltOnTimedout)
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+app.use(haltOnTimedout)
 
 // Setting up middlewares
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(passportConfig.initialize());
+
+function haltOnTimedout (req, res, next) {
+  if (!req.timedout) next()
+}
 
 // Routing
 app.use("/auth", require("./routes/authRoutes"));
