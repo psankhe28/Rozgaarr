@@ -1,4 +1,4 @@
-export const server = "https://rozgaarr-portal.herokuapp.com";
+export const server = "https://rozgaarr-portal.herokuapp.com/";
 
 const apiList = {
   login: `${server}/auth/login`,
