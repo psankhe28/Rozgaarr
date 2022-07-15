@@ -1,10 +1,11 @@
+require('dotenv').config()
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const passportConfig = require("./lib/passportConfig");
 const cors = require("cors");
 const fs = require("fs");
-require('dotenv').config()
 
 
 // MongoDB
@@ -30,21 +31,14 @@ if (!fs.existsSync("./public/profile")) {
 }
 
 const app = express();
-const port = 4444;
+const port = process.env.PORT || 4444;
 
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
-app.use(function (req, res, next) {
-  //Enabling CORS
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,HEAD,OPTIONS,POST,PUT");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, x-client-key, x-client-token, x-client-secret, Authorization");
-    next();
-  });
-
 // Setting up middlewares
 app.use(cors());
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 app.use(passportConfig.initialize());
 
